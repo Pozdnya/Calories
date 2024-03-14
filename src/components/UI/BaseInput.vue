@@ -4,7 +4,9 @@ import { defineProps, defineEmits } from 'vue';
 
 const props = defineProps<{
   modelValue: string,
+  placeholder: string,
   type: InputTypeEnum,
+  warningMessage: string,
 }>()
 
 const emits = defineEmits(['update:model-value'])
@@ -20,12 +22,12 @@ function updateInput(event: Event) {
     <input 
       :type="props.type" 
       class="input__field" 
-      placeholder="Enter email" 
+      :placeholder="props.placeholder" 
       :value="props.modelValue" 
       @change="updateInput"
     >
     <div class="input__warning">
-      <span class="input__warning-text">Incorect email</span>
+      <span class="input__warning-text">{{ props.warningMessage }}</span>
     </div>
   </div>
 </template>

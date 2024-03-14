@@ -14,8 +14,12 @@ const authStore = useAuthStore();
 
 <template>
   <BaseDialog v-if="appStore.isOpenDialog">
+    <template #header>
+      LOG IN
+    </template>
     <template #body>
-      <AuthForm :mode="FormModeEnum.LOGIN" />
+      <AuthForm :mode="FormModeEnum.LOGIN" v-if="appStore.getFormMode === FormModeEnum.LOGIN"/>
+      <AuthForm :mode="FormModeEnum.REGISTRATION" v-if="appStore.getFormMode === FormModeEnum.REGISTRATION"/>
     </template>
   </BaseDialog>
   <header class="header">
@@ -26,8 +30,8 @@ const authStore = useAuthStore();
     </div>
 
     <div class="header__actions" v-if="!authStore.isLoginedUser">
-      <BaseButton :type="ButtonTypeEnum.BUTTON" @click="appStore.toggleDialog">Log In</BaseButton>
-      <BaseButton :type="ButtonTypeEnum.BUTTON">Registration</BaseButton>
+      <BaseButton :type="ButtonTypeEnum.BUTTON" @click="appStore.toggleDialog(FormModeEnum.LOGIN)">Log In</BaseButton>
+      <BaseButton :type="ButtonTypeEnum.BUTTON" @click="appStore.toggleDialog(FormModeEnum.REGISTRATION)">Registration</BaseButton>
     </div>
     <div v-else>
       logined
