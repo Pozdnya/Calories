@@ -1,7 +1,11 @@
 <script setup lang="ts"></script>
 
 <template>
-  <div>MAIN</div>
+  <div class="main">MAIN</div>
 </template>
 
-<style scoped></style>
+<style scoped>
+.main {
+  width: 100%;
+}
+</style>
