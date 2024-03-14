@@ -4,9 +4,11 @@ import { defineStore } from 'pinia';
 
 export const useAppStore = defineStore('appStore', {
   state: (): IAppStore => ({
-    isOpenDialog: false
+    isOpenDialog: false,
   }),
-  getters: {},
+  getters: {
+
+  },
   actions: {
     toggleDialog() {
       this.isOpenDialog = !this.isOpenDialog

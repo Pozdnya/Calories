@@ -5,7 +5,10 @@ import VueDatePicker from '@vuepic/vue-datepicker'
 <template>
   <main class="main">
     <div class="date-picker">
-      <VueDatePicker class="date-picker__field"/>
+      <VueDatePicker class="date-picker__field" />
+    </div>
+
+    <div>
     </div>
   </main>
 </template>

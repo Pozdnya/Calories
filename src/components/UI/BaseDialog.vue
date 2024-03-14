@@ -53,11 +53,7 @@ const appStore = useAppStore();
   }
 
   &__body {
-    margin-top: 40px;
-    display: flex;
-    flex-direction: column;
-    gap: 12px;
-    align-items: center;
+    padding: 24px;
   }
 }
 </style>
