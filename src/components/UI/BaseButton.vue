@@ -15,9 +15,14 @@
   font-weight: 600;
   cursor: pointer;
   transition: background-color .3s, color .3s;
+  display: flex;
+  flex-wrap: nowrap;
+  align-items: center;
+  justify-content: center;
+  min-width: 120px;
 
   &:hover {
-    background-color: var(--color-north-star-blue);
+    background-color: var(--color-primary);
     color: var(--color-white);
   }
 }
