@@ -1,11 +1,29 @@
-<script setup lang="ts"></script>
+<script setup lang="ts">
+import VueDatePicker from '@vuepic/vue-datepicker'
+</script>
 
 <template>
-  <div class="main">MAIN</div>
+  <main class="main">
+    <div class="date-picker">
+      <VueDatePicker class="date-picker__field"/>
+    </div>
+  </main>
 </template>
 
-<style scoped>
+<style scoped lang="scss">
 .main {
   width: 100%;
+  margin-top: 120px;
+  padding: 0 20px;
+}
+
+.date-picker {
+  width: 100%;
+  display: flex;
+  justify-content: flex-end;
+
+  &__field {
+    max-width: 40%;
+  }
 }
 </style>
