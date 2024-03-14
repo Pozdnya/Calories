@@ -1,10 +1,16 @@
 export enum ButtonTypeEnum {
-  Button = "button",
-  Submit = "submit",
-  Reset = "reset"
+  BUTTON = "button",
+  SUBMIT = "submit",
+  RESET = "reset"
 }
 
-export enum ModalModeEnum {
+export enum InputTypeEnum {
+  TEXT = 'text',
+  EMAIL = 'email',
+  PASSWROD = 'password',
+}
+
+export enum FormModeEnum {
   LOGIN = 'login',
   REGISTRATION = 'registration'
 }

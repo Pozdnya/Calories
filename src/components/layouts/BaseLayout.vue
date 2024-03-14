@@ -2,6 +2,7 @@
 import TheHeader from './TheHeader.vue';
 import TheMain from './TheMain.vue';
 import TheNavigation from './TheNavigation.vue';
+
 </script>
 
 <template>

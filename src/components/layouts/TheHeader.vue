@@ -1,19 +1,36 @@
 <script setup lang="ts">
+import { ButtonTypeEnum, FormModeEnum } from '@/types/Enums';
+import { useAppStore } from '@/stores/appStore';
+import { useAuthStore } from '@/stores/authStore';
 import Logo from '@/assets/logo.png';
-import BaseButton from '../UI/BaseButton.vue';
+import BaseButton from '@/components/UI/BaseButton.vue';
+import BaseDialog from '@/components/UI/BaseDialog.vue';
+import AuthForm from '@/components/AuthForm.vue';
+
+const appStore = useAppStore();
+const authStore = useAuthStore();
+
 </script>
 
 <template>
+  <BaseDialog v-if="appStore.isOpenDialog">
+    <template #body>
+      <AuthForm :mode="FormModeEnum.LOGIN" />
+    </template>
+  </BaseDialog>
   <header class="header">
     <div class="logo header__logo">
       <a href="/" class="logo__link">
-        <img :src="Logo" class="logo__image"/>
+        <img :src="Logo" class="logo__image" />
       </a>
     </div>
 
-    <div class="header__actions">
-      <BaseButton>Log In</BaseButton>
-      <BaseButton>Registration</BaseButton>
+    <div class="header__actions" v-if="!authStore.isLoginedUser">
+      <BaseButton :type="ButtonTypeEnum.BUTTON" @click="appStore.toggleDialog">Log In</BaseButton>
+      <BaseButton :type="ButtonTypeEnum.BUTTON">Registration</BaseButton>
+    </div>
+    <div v-else>
+      logined
     </div>
   </header>
 </template>
@@ -31,7 +48,7 @@ import BaseButton from '../UI/BaseButton.vue';
   left: 0;
   background-color: var(--color-white);
   z-index: 1;
-  
+
   &__actions {
     display: flex;
     gap: 8px;
@@ -55,5 +72,4 @@ import BaseButton from '../UI/BaseButton.vue';
     border-radius: 50%;
   }
 }
-
 </style>

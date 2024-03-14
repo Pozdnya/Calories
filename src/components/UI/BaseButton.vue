@@ -1,7 +1,14 @@
-<script setup lang="ts"></script>
+<script setup lang="ts">
+import type { ButtonTypeEnum } from '@/types/Enums';
+import { defineProps } from 'vue';
+
+const props = defineProps<{
+  type: ButtonTypeEnum
+}>()
+</script>
 
 <template>
-  <button class="button">
+  <button class="button" :type="props.type">
     <slot></slot>
   </button>
 </template>
