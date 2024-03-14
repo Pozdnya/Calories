@@ -1,9 +1,16 @@
 <script setup lang="ts">
 import Logo from '@/assets/logo.png';
 import BaseButton from '../UI/BaseButton.vue';
+import BaseDialog from '../UI/BaseDialog.vue';
+import { useAppStore } from '@/stores/appStore';
+
+const appStore = useAppStore();
+
+console.log(appStore.isOpenDialog)
 </script>
 
 <template>
+  <BaseDialog v-if="appStore.isOpenDialog"/>
   <header class="header">
     <div class="logo header__logo">
       <a href="/" class="logo__link">
@@ -12,7 +19,7 @@ import BaseButton from '../UI/BaseButton.vue';
     </div>
 
     <div class="header__actions">
-      <BaseButton>Log In</BaseButton>
+      <BaseButton @click="appStore.toggleDialog">Log In</BaseButton>
       <BaseButton>Registration</BaseButton>
     </div>
   </header>

@@ -1,5 +1,3 @@
-export interface ILogIn {
-  email: string,
-  password: string | number,
-  isLogined: boolean,
+export interface IAppStore {
+  isOpenDialog: boolean
 }
