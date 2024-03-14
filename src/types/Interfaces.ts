@@ -1,6 +1,8 @@
+import type { FormModeEnum } from "./Enums";
+
 export interface IAppStore {
-  isOpenDialog: boolean
-  
+  isOpenDialog: boolean,
+  dialogMode: null | FormModeEnum,
 }
 
 export interface ILoginUser {

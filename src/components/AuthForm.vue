@@ -35,9 +35,25 @@ function submitHandler() {
   <form class="form" @submit.prevent="submitHandler">
     <div class="form__inputs">
 
-      <BaseInput v-if="props.mode === FormModeEnum.REGISTRATION" v-model="inputedName" :type="InputTypeEnum.TEXT"/>
-      <BaseInput v-model="inputedEmail" :type="InputTypeEnum.EMAIL"/>
-      <BaseInput v-model="inputedPassword" :type="InputTypeEnum.PASSWROD"/>
+      <BaseInput 
+        v-if="props.mode === FormModeEnum.REGISTRATION" 
+        v-model="inputedName" 
+        :type="InputTypeEnum.TEXT" 
+        placeholder="Enter your name"
+        warningMessage="Incorect name"
+      />
+      <BaseInput 
+        v-model="inputedEmail" 
+        :type="InputTypeEnum.EMAIL" 
+        placeholder="Enter your email" 
+        warningMessage="Incorect email"
+      />
+      <BaseInput 
+        v-model="inputedPassword" 
+        :type="InputTypeEnum.PASSWROD" 
+        placeholder="Enter your password" 
+        warningMessage="Incorect password"
+      />
     </div>
 
     <div class="form__actions">
