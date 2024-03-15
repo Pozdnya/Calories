@@ -1,11 +1,11 @@
 <script setup lang="ts">
 import { ref, defineProps } from 'vue';
 import { ButtonTypeEnum, FormModeEnum, InputTypeEnum } from '@/types/Enums';
-import BaseButton from './UI/BaseButton.vue';
 import { useAppStore } from '@/stores/appStore';
-
-import BaseInput from './UI/BaseInput.vue';
 import { useAuthStore } from '@/stores/authStore';
+
+import BaseButton from './UI/BaseButton.vue';
+import BaseInput from './UI/BaseInput.vue';
 
 const appStore = useAppStore();
 const authStore = useAuthStore();
@@ -34,7 +34,6 @@ function submitHandler() {
 <template>
   <form class="form" @submit.prevent="submitHandler">
     <div class="form__inputs">
-
       <BaseInput 
         v-if="props.mode === FormModeEnum.REGISTRATION" 
         v-model="inputedName" 
@@ -50,7 +49,7 @@ function submitHandler() {
       />
       <BaseInput 
         v-model="inputedPassword" 
-        :type="InputTypeEnum.PASSWROD" 
+        :type="InputTypeEnum.PASSWORD" 
         placeholder="Enter your password" 
         warningMessage="Incorect password"
       />
