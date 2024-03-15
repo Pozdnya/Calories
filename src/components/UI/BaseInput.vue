@@ -10,6 +10,7 @@ const props = defineProps<{
   placeholder: string,
   type: InputTypeEnum,
   warningMessage: string,
+  id: string,
 }>()
 
 const emits = defineEmits(['update:model-value'])
@@ -40,6 +41,7 @@ watch(() => props.modelValue, newValue => {
       :placeholder="props.placeholder" 
       :value="isHowPassword ? inputValue : props.modelValue"
       @change="updateInput"
+      :id="props.id"
     >
     <div class="input__icon" v-if="props.type === InputTypeValues.PASSWORD">
       <img 

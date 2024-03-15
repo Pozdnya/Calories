@@ -5,16 +5,13 @@ export interface IAppStore {
   dialogMode: null | FormModeEnum,
 }
 
-export interface ILoginUser {
-  email: string,
-  password: string,
-  isLogined: boolean,
+export interface IAuthData {
+  userName?: string | null,
+  email: string | null,
+  password: string | null,
 }
 
 export interface IAuthStore {
-  user: {
-    email: null | string,
-    password: null | string,
-    isLogined: boolean,
-  },
+  user: IAuthData,
+  isLogined: boolean,
 }

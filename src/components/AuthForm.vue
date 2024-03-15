@@ -1,11 +1,14 @@
 <script setup lang="ts">
-import { ref, defineProps } from 'vue';
+import { ref, defineProps, reactive } from 'vue';
+import { useVuelidate } from '@vuelidate/core';
+import { required } from '@vuelidate/validators';
 import { ButtonTypeEnum, FormModeEnum, InputTypeEnum } from '@/types/Enums';
 import { useAppStore } from '@/stores/appStore';
 import { useAuthStore } from '@/stores/authStore';
 
 import BaseButton from './UI/BaseButton.vue';
 import BaseInput from './UI/BaseInput.vue';
+import type { IAuthData } from '@/types/Interfaces';
 
 const appStore = useAppStore();
 const authStore = useAuthStore();
@@ -18,11 +21,15 @@ const inputedEmail = ref<string>('')
 const inputedPassword = ref<string>('')
 const inputedName = ref<string>('')
 
-function submitHandler() {
+const inputForm: Pick<IAuthData, 'email' | 'password'> = reactive({
+  email: '',
+  password: '',
+})
+
+async function submitHandler() {
   const loginedUser = {
     email: inputedEmail.value,
     password: inputedPassword.value,
-    isLogined: true,
   }
 
   authStore.loginUser(loginedUser)
@@ -34,25 +41,12 @@ function submitHandler() {
 <template>
   <form class="form" @submit.prevent="submitHandler">
     <div class="form__inputs">
-      <BaseInput 
-        v-if="props.mode === FormModeEnum.REGISTRATION" 
-        v-model="inputedName" 
-        :type="InputTypeEnum.TEXT" 
-        placeholder="Enter your name"
-        warningMessage="Incorect name"
-      />
-      <BaseInput 
-        v-model="inputedEmail" 
-        :type="InputTypeEnum.EMAIL" 
-        placeholder="Enter your email" 
-        warningMessage="Incorect email"
-      />
-      <BaseInput 
-        v-model="inputedPassword" 
-        :type="InputTypeEnum.PASSWORD" 
-        placeholder="Enter your password" 
-        warningMessage="Incorect password"
-      />
+      <BaseInput v-if="props.mode === FormModeEnum.REGISTRATION" v-model="inputedName" :type="InputTypeEnum.TEXT"
+        placeholder="Enter your name" warningMessage="Incorect name" id="name" />
+      <BaseInput v-model="inputedEmail" :type="InputTypeEnum.EMAIL" placeholder="Enter your email"
+        warningMessage="Incorect email" id="email" />
+      <BaseInput v-model="inputedPassword" :type="InputTypeEnum.PASSWORD" placeholder="Enter your password"
+        warningMessage="Incorect password" id="password" />
     </div>
 
     <div class="form__actions">
