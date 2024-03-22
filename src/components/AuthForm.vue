@@ -1,5 +1,5 @@
 <script setup lang="ts">
-import { ref, defineProps, reactive } from 'vue';
+import { defineProps, reactive, ref } from 'vue';
 import { useVuelidate } from '@vuelidate/core';
 import { required } from '@vuelidate/validators';
 import { ButtonTypeEnum, FormModeEnum, InputTypeEnum } from '@/types/Enums';
@@ -17,22 +17,44 @@ const props = defineProps<{
   mode: FormModeEnum
 }>()
 
-const inputedEmail = ref<string>('')
-const inputedPassword = ref<string>('')
-const inputedName = ref<string>('')
+type AuthType = FormModeEnum extends FormModeEnum.LOGIN ? Pick<IAuthData, 'email' | 'password'> : IAuthData;
 
-const inputForm: Pick<IAuthData, 'email' | 'password'> = reactive({
+const inputForm: AuthType = reactive({
   email: '',
   password: '',
+  // userName: '',
 })
 
+const rules = {
+  email: { required },
+  password: { required },
+  // userName: { required },
+}
+
+const v$ = useVuelidate(rules, inputForm as any)
+
+const userNameInputErrorMessage = ref<string>('')
+const emailInputErrorMessage = ref<string>('')
+const passwordInputErrorMessage = ref<string>('')
+
 async function submitHandler() {
-  const loginedUser = {
-    email: inputedEmail.value,
-    password: inputedPassword.value,
+  const isValidForm = await v$.value.$validate()
+  console.log('isValid', isValidForm)
+  
+  if (!isValidForm) {
+    emailInputErrorMessage.value = 'Incorrect email';
+    passwordInputErrorMessage.value = 'Incorrect password';
+    userNameInputErrorMessage.value = 'Incorrect name';
+
+    return;
   }
 
-  authStore.loginUser(loginedUser)
+  const loginedUser = {
+    email: inputForm.email,
+    password: inputForm.password,
+  }
+
+  authStore.loginUser(loginedUser, isValidForm)
   appStore.toggleDialog()
 }
 
@@ -41,12 +63,11 @@ async function submitHandler() {
 <template>
   <form class="form" @submit.prevent="submitHandler">
     <div class="form__inputs">
-      <BaseInput v-if="props.mode === FormModeEnum.REGISTRATION" v-model="inputedName" :type="InputTypeEnum.TEXT"
-        placeholder="Enter your name" warningMessage="Incorect name" id="name" />
-      <BaseInput v-model="inputedEmail" :type="InputTypeEnum.EMAIL" placeholder="Enter your email"
-        warningMessage="Incorect email" id="email" />
-      <BaseInput v-model="inputedPassword" :type="InputTypeEnum.PASSWORD" placeholder="Enter your password"
-        warningMessage="Incorect password" id="password" />
+      <BaseInput v-if="props.mode === FormModeEnum.REGISTRATION" v-model="inputForm.userName" :type="InputTypeEnum.TEXT"
+        placeholder="Enter your name"
+        />
+      <BaseInput v-model="inputForm.email" :type="InputTypeEnum.EMAIL" placeholder="Enter your email"  :errorMessage="emailInputErrorMessage" />
+      <BaseInput v-model="inputForm.password" :type="InputTypeEnum.PASSWORD" placeholder="Enter your password" :errorMessage="passwordInputErrorMessage" />
     </div>
 
     <div class="form__actions">

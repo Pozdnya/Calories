@@ -6,16 +6,15 @@ import Eye from '@/assets/icons/eye-regular.svg';
 import EyeSlash from '@/assets/icons/eye-slash-regular.svg';
 
 const props = defineProps<{
-  modelValue: string,
+  modelValue: string | null | undefined,
   placeholder: string,
   type: InputTypeEnum,
-  warningMessage: string,
-  id: string,
+  errorMessage?: string,
 }>()
 
 const emits = defineEmits(['update:model-value'])
 const isHowPassword = ref<boolean>(false)
-const inputValue = ref<string>(props.modelValue)
+const inputValue = ref<string | null | undefined>(props.modelValue)
 
 function updateInput(event: Event) {
   emits('update:model-value', (event.target as HTMLInputElement).value)
@@ -52,7 +51,7 @@ watch(() => props.modelValue, newValue => {
       />
     </div>
     <div class="input__warning">
-      <span class="input__warning-text">{{ props.warningMessage }}</span>
+      <span class="input__warning-text">{{ props.errorMessage }}</span>
     </div>
   </div>
 </template>
@@ -105,6 +104,7 @@ watch(() => props.modelValue, newValue => {
   &__warning {
     text-align: center;
     color: var(--color-warning);
+    height: 16px;
 
     &-text {
       font-family: "Ubuntu-Light";

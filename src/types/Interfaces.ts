@@ -6,9 +6,9 @@ export interface IAppStore {
 }
 
 export interface IAuthData {
-  userName?: string | null,
-  email: string | null,
-  password: string | null,
+  userName?: string 
+  email: string 
+  password: string 
 }
 
 export interface IAuthStore {
