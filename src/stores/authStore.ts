@@ -1,22 +1,24 @@
-import type { IAuthStore, ILoginUser } from '@/types/Interfaces';
+import type { IAuthStore, IAuthData } from '@/types/Interfaces';
 import { defineStore } from 'pinia';
 
 export const useAuthStore = defineStore('authStore', {
   state: (): IAuthStore => ({
     user: {
-      email: null,
-      password: null,
-      isLogined: false
+      userName: '',
+      email: '',
+      password: '',
     },
+    isLogined: false
   }),
   actions: {
-    loginUser(user: ILoginUser) {
-      this.user = user
+    loginUser(user: IAuthData, isLogined: boolean) {
+      this.user = user;
+      this.isLogined = isLogined;
     }
   },
   getters: {
     isLoginedUser(state) {
-      return state.user.isLogined
+      return state.isLogined
     }
   }
 })

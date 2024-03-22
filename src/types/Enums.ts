@@ -7,7 +7,7 @@ export enum ButtonTypeEnum {
 export enum InputTypeEnum {
   TEXT = 'text',
   EMAIL = 'email',
-  PASSWROD = 'password',
+  PASSWORD = 'password',
 }
 
 export enum FormModeEnum {
